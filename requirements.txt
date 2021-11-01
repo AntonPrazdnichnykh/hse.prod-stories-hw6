@@ -1,0 +1,4 @@
+hunspell
+textdistance
+nltk
+requests
