@@ -37,8 +37,8 @@ class BiGramModel:
             return p_bi / p_prev
         return self.p1w(word)
 
-    def neg_logprob_seq_uni(self, words):
-        return -sum(log(self.p1w(w) + self._eps) for w in words)
+    def nll_uni(self, words):
+        return -sum(log(self.p1w(w) + self._eps) for w in words) / len(words)
 
-    def neg_logprob_seq_bi(self, words, sos='<S>'):
-        return -sum(log(self.pr_c(w, sos * (i == 0) + words[i-1] * (i > 0)) + self._eps) for i, w in enumerate(words))
+    def nll_bi(self, words, sos='<S>'):
+        return -sum(log(self.pr_c(w, sos * (i == 0) + words[i-1] * (i > 0)) + self._eps) for i, w in enumerate(words)) / (len(words) + 1)
